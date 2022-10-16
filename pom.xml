@@ -18,6 +18,8 @@
 		<repackage.classifier/>
 		<spring-native.version>0.12.1</spring-native.version>
 	</properties>
+	    <sonar.organization>saichanakya1</sonar.organization>
+            <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
