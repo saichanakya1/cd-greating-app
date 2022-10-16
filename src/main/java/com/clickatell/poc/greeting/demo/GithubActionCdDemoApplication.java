@@ -6,8 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class GithubActionCdDemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GithubActionCdDemoApplication.class, args);
-	}
+    // call run() inside main() method 
+    public static void main(String[] args) {
+	SpringApplication.run(GithubActionCdDemoApplication.class, args);
+    }
 
 }
