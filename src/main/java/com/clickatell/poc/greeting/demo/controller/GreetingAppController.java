@@ -15,7 +15,7 @@ public class GreetingAppController {
 
     @GetMapping("/health")
     public String health(){
-        return "HEALTH CHECK OK!";
+        return "HEALTH CHECK IS OK!";
     }
 
 }

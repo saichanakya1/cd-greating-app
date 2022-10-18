@@ -15,7 +15,7 @@ class GreetingAppControllerTest {
 
     @Test
     void health() {
-        assertEquals( "HEALTH CHECK OK!", greetingAppController.health());
+        assertEquals( "HEALTH CHECK IS OK!", greetingAppController.health());
     }
 
     @Test
