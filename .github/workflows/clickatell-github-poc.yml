@@ -76,7 +76,7 @@ jobs:
 
 
  #Build's job
-  build:
+  dockerbuild:
     #Depends on sonar's job
     needs: sonar
     name: Build docker image
@@ -104,8 +104,12 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/clickatell-demo:latest
 
-  deploy:
-    name: Deploy
+  ecrbuild:
+    #Depends on sonar's job
+    needs: sonar
+    name: Build ecr image
+
+    name: ecrbuild
     runs-on: ubuntu-latest
 
     steps:
@@ -135,3 +139,28 @@ jobs:
         echo "Pushing image to ECR..."
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+   deploy:
+    name: Deploy
+     - name: Configure Kubectl
+        uses: azure/setup-kubectl@v2.0
+        with:
+          version: 'v1.23.6'
+        id: install
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-2
+
+    - name: Update KubeConfig
+      shell: bash
+      run: |
+        aws eks update-kubeconfig --name dev  --region us-east-2
+
+   # Deploy newly built changes to EKS cluster.
+   - name: Deploy To Cluster
+     shell: bash
+     run: kubectl apply -n default -f deployment.yaml 
