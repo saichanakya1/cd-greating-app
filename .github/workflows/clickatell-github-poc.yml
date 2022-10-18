@@ -141,9 +141,8 @@ jobs:
 
   deploy:
     needs: ecrbuild
-    name: Build ecr image
+    name: Deply into eks
 
-    name: Deploy
     runs-on: ubuntu-latest
 
     steps:
