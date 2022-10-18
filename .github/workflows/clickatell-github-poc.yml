@@ -109,7 +109,6 @@ jobs:
     needs: sonar
     name: Build ecr image
 
-    name: ecrbuild
     runs-on: ubuntu-latest
 
     steps:
