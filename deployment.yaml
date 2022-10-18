@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: clickatell-demo
+  name: clickatell-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clickatell-demo
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: clickatell-demo
+    spec:
+      containers:
+      - image: 203141921903.dkr.ecr.us-east-2.amazonaws.com/clickatell-poc:latest
+        name: clickatell-demo
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: clickatell-demo
+  name: clickatell-demo
+spec:
+  ports:
+  - name: 8080-8080
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: clickatell-demo
+  type: LoadBalancer
